@@ -6,11 +6,11 @@ Q          ?= @
 # ELF.  E.g., x86_64-jos-elf-
 TOOLPREFIX ?=
 # QEMU binary
-QEMU       ?= qemu-system-x86_64
+QEMU       ?= qemu-system-x86_64 -enable-kvm
 # Number of CPUs to emulate
-QEMUSMP    ?= 8
+QEMUSMP    ?= 56
 # RAM to simulate (in MB)
-QEMUMEM    ?= 512
+QEMUMEM    ?= 128000
 # Default hardware build target.  See param.h for others.
 HW         ?= qemu
 # Enable C++ exception handling in the kernel.

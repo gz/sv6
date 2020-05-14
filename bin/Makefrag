@@ -21,6 +21,7 @@ UPROGS_BIN= \
 	login \
 	ls \
 	mapbench \
+	vmops \
 	allocbench \
 	maptest \
 	mkdir \
