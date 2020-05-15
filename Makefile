@@ -8,9 +8,9 @@ TOOLPREFIX ?=
 # QEMU binary
 QEMU       ?= qemu-system-x86_64 -enable-kvm
 # Number of CPUs to emulate
-QEMUSMP    ?= 56
+QEMUSMP    ?= 80
 # RAM to simulate (in MB)
-QEMUMEM    ?= 128000
+QEMUMEM    ?= 32768
 # Default hardware build target.  See param.h for others.
 HW         ?= qemu
 # Enable C++ exception handling in the kernel.
@@ -201,8 +201,11 @@ ifneq ($(RUN),)
 override QEMUAPPEND += \$$ $(RUN)
 endif
 
+# $(if $(QEMUOUTPUT),-serial file:$(QEMUOUTPUT),-serial mon:stdio) \
+
 QEMUOPTS += -smp $(QEMUSMP) -m $(QEMUMEM) \
-	$(if $(QEMUOUTPUT),-serial file:$(QEMUOUTPUT),-serial mon:stdio) \
+	-chardev stdio,id=char0,mux=on,logfile=serial.log,signal=off \
+	-serial chardev:char0 -mon chardev=char0 \
 	-nographic \
 	-numa node -numa node \
 	-net user -net nic,model=e1000 \
