@@ -10,7 +10,7 @@ import signal
 from time import sleep
 
 from plumbum import colors, local
-from plumbum.cmd import sudo, whoami, python3, make, cat, corealloc
+from plumbum.cmd import tmux, sudo, whoami, python3, make, cat, corealloc
 
 
 def exception_handler(exception_type, exception, traceback):
@@ -108,7 +108,12 @@ def build_kernel(args):
         if args.verbose:
             print("cd {}".format(KERNEL_PATH))
             print("make")
-        make
+        make()
+
+        if args.verbose:
+            print("make qemubuild")
+        # also run make qemu to generate latest kernel.elf file
+        make['qemubuild']()
 
 
 def run(args):
