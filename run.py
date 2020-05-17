@@ -4,14 +4,13 @@ import argparse
 import os
 import sys
 import pathlib
-import shutil
 import subprocess
 import prctl
 import signal
 from time import sleep
 
 from plumbum import colors, local
-from plumbum.cmd import sudo, tunctl, ifconfig, whoami, python3, make, cat, corealloc
+from plumbum.cmd import sudo, whoami, python3, make, cat, corealloc
 
 
 def exception_handler(exception_type, exception, traceback):
@@ -38,8 +37,8 @@ LIBS_PATH = (SCRIPT_PATH / '..').resolve() / 'lib'
 USR_PATH = (SCRIPT_PATH / '..').resolve() / 'usr'
 
 UEFI_TARGET = "{}-uefi".format(ARCH)
-KERNEL_TARGET = "{}-bespin".format(ARCH)
-USER_TARGET = "{}-bespin-none".format(ARCH)
+KERNEL_TARGET = "{}-sv6".format(ARCH)
+USER_TARGET = "{}-sv6-none".format(ARCH)
 USER_RUSTFLAGS = "-Clink-arg=-zmax-page-size=0x200000"
 
 #
@@ -115,7 +114,7 @@ def build_kernel(args):
 def run(args):
     """
     Run the system on a hardware/emulation platform
-    Returns: A bespin exit error code.
+    Returns: A sv6 exit error code.
     """
     def run_qemu(args):
         log("Starting QEMU")
@@ -218,19 +217,19 @@ def run(args):
         # Wait until qemu exits
         execution.wait()
 
-        bespin_exit_code = execution.returncode >> 1
-        if SV6_EXIT_CODES.get(bespin_exit_code):
-            print(SV6_EXIT_CODES[bespin_exit_code])
+        sv6_exit_code = execution.returncode >> 1
+        if SV6_EXIT_CODES.get(sv6_exit_code):
+            print(SV6_EXIT_CODES[sv6_exit_code])
         else:
             print(
-                "[FAIL] Kernel exited with unknown error status {}... Update the script!".format(bespin_exit_code))
+                "[FAIL] Kernel exited with unknown error status {}... Update the script!".format(sv6_exit_code))
 
-        if bespin_exit_code != 0:
+        if sv6_exit_code != 0:
             log("Invocation was: {}".format(cmd))
             if execution.stderr:
                 print("STDERR: {}".format(execution.stderr.decode('utf-8')))
 
-        return bespin_exit_code
+        return sv6_exit_code
 
     if args.machine == 'qemu':
         return run_qemu(args)
@@ -243,7 +242,7 @@ def run(args):
 # Main routine of run.py
 #
 if __name__ == '__main__':
-    "Execution pipeline for building and launching bespin"
+    "Execution pipeline for building and launching sv6"
     args = parser.parse_args()
 
     if args.machine != 'qemu' and (args.qemu_debug_cpu or args.qemu_settings or args.qemu_monitor or args.qemu_cores or args.qemu_nodes):
