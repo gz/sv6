@@ -64,9 +64,9 @@
 // QEMU-based targets
 //
 #if defined(HW_qemu)
-#define DEBUG         1
-#define NCPU          94   // maximum number of CPUs
-#define NSOCKET       4
+#define DEBUG         0
+#define NCPU          255   // maximum number of CPUs
+#define NSOCKET       8
 #define PERFSIZE      (16<<20ull)
 #define MEMIDE        0
 #define AHCIIDE       1
@@ -129,7 +129,7 @@
 #endif
 
 #ifndef DEBUG
-#define DEBUG 1
+#define DEBUG 0
 #endif
 #ifndef CODEX
 #define CODEX 0

@@ -1,3 +1,7 @@
+# Remove typing CC and CXX all the time
+CC=gcc-4.8
+CXX=g++-4.8
+
 # Custom config file?  Otherwise use defaults.
 -include config.mk
 # Quiet.  Run "make Q=" for a verbose build.
