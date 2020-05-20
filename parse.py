@@ -13,5 +13,5 @@ if __name__ == '__main__':
                     f1.write(line.split(' ')[2] + ' ')
                 if flag is True and 'mmaps' in line:
                     flag = False
-                    thp = float(line.split(' ')[0]) / NUM_SECONDS
+                    thp = float(line.split(' ')[0]) / (1000000 * NUM_SECONDS)
                     f1.write(str(thp) + '\n')

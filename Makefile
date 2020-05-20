@@ -12,9 +12,9 @@ TOOLPREFIX ?=
 # QEMU binary
 QEMU       ?= qemu-system-x86_64 -enable-kvm
 # Number of CPUs to emulate
-QEMUSMP    ?= 56
+QEMUSMP    ?= 20
 # RAM to simulate (in MB)
-QEMUMEM    ?= 128000
+QEMUMEM    ?= 10240
 # Default hardware build target.  See param.h for others.
 HW         ?= qemu
 # Enable C++ exception handling in the kernel.
@@ -233,8 +233,12 @@ endif
 # User-provided QEMU options
 QEMUOPTS += $(QEMUEXTRA)
 
+qemubuild: $(KERN)
+	#$(QEMU) $(QEMUOPTS) $(QEMUKVMFLAGS) -kernel $(KERN)
+
 qemu: $(KERN)
 	$(QEMU) $(QEMUOPTS) $(QEMUKVMFLAGS) -kernel $(KERN)
+
 gdb: $(KERN)
 	$(QEMU) $(QEMUOPTS) $(QEMUKVMFLAGS) -kernel $(KERN) -s
 

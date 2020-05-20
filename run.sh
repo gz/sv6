@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# $1 -> total number of cores
+# $2 -> total number of sockets
+
 set -ex
 
 function exec_tmux {
@@ -7,7 +10,7 @@ function exec_tmux {
 }
 
 function run_qemu {
-	tmux send-keys -t sv6 "./run.py --qemu-affinity --qemu-cores 80 --qemu-nodes 8 --qemu-memory 65536" Enter
+	tmux send-keys -t sv6 ./run.py --qemu-affinity --qemu-cores $1 --qemu-nodes $2 --qemu-memory 65536 Enter
 }
 
 function exec_tmux_vmops {
@@ -25,14 +28,13 @@ tmux new-session -n'sv6' -s'sv6' -d
 rm serial.log -f
 
 # run the script
-run_qemu
+run_qemu $1 $2
 
 # let's sleep for a while, since sv6 takes a bit of time to boot up
 sleep 30
 
 # Now start running the script
-MAX_CORES=80
-for cores in 1 `seq 8 8 $MAX_CORES`; do
+for cores in 1 `seq 8 8 $1`; do
 	exec_tmux_vmops $cores
 	sleep 60
 done
