@@ -10,7 +10,7 @@ function exec_tmux {
 }
 
 function run_qemu {
-	tmux send-keys -t sv6 ./run.py --qemu-affinity --qemu-cores $1 --qemu-nodes $2 --qemu-memory 65536 Enter
+	tmux send-keys -t sv6 "./run.py --qemu-affinity --qemu-cores $1 --qemu-nodes $2 --qemu-memory 65536" Enter
 }
 
 function exec_tmux_vmops {
