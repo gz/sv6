@@ -7,18 +7,15 @@ NUM_SECONDS = 5
 if __name__ == '__main__':
     with open('sv6-mmaps.csv', 'w', newline='') as csvfile:
         writer = csv.writer(csvfile, delimiter=',',
-                quotechar = '|', quoting=csv.QUOTE_MINIMAL)
-        writer.writerow(['threads','throuhput'])
+                            quotechar='|', quoting=csv.QUOTE_MINIMAL)
+        writer.writerow(['threads', 'throuhput'])
         with open('serial.log') as logfile:
             flag = False
             for line in logfile.readlines():
                 if 'vmops' in line:
                     flag = True
-                    # threads.append(line.split(' ')[2])
-                    # csvfile.write(line.split(' ')[2] + ' ')
                     threads = line.split(' ')[2]
                 if flag is True and 'mmaps' in line:
                     flag = False
                     thp = float(line.split(' ')[0]) / (1000000 * NUM_SECONDS)
                     writer.writerow([threads, thp])
-                    # csvfile.write(str(thp) + '\n')
