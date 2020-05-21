@@ -137,7 +137,9 @@ def run(args):
 
         # Enable networking with outside world
         qemu_default_args += ['-net', 'user',  '-net', 'nic,model=e1000',
-                '-redir', 'tcp:2323::23', '-redir', 'tcp:8080::80']
+                # '-redir', 'tcp:2323::23',
+                # '-redir', 'tcp:8080::80'
+                ]
         qemu_default_args += ['-device', 'ahci,id=ahci0',
                 '-drive', 'if=none,file=./o.qemu/fs.img,format=raw,id=drive-sata0-0-0',
                 '-device', 'ide-drive,bus=ahci0.0,drive=drive-sata0-0-0,id=sata0-0-0']

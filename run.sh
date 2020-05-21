@@ -20,6 +20,8 @@ function exec_tmux_vmops {
 # let's compile first to avoid the delay
 make -j
 
+qemu-system-x86_64 --version
+
 # First create the tmux session and detach from it
 tmux new-session -n'sv6' -s'sv6' -d
 
@@ -44,6 +46,6 @@ sleep 5
 sync
 tmux kill-session -t 'sv6'
 
-cat sv6_serial.log
+cat sv6/sv6_serial.log
 
 python3 ./parse.py
