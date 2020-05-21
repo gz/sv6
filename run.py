@@ -132,7 +132,7 @@ def run(args):
         # Use serial communication
         # '-nographic',
         # qemu_default_args += ['-display', 'none', '-serial', 'stdio']
-        qemu_default_args += ['-chardev', 'stdio,id=char0,mux=on,logfile=serial.log,signal=off',
+        qemu_default_args += ['-chardev', 'stdio,id=char0,mux=on,logfile=sv6_serial.log,signal=off',
                 '-serial', 'chardev:char0', '-mon', 'chardev=char0']
 
         # Enable networking with outside world

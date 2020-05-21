@@ -9,7 +9,7 @@ if __name__ == '__main__':
         writer = csv.writer(csvfile, delimiter=',',
                             quotechar='|', quoting=csv.QUOTE_MINIMAL)
         writer.writerow(['threads', 'throuhput'])
-        with open('serial.log') as logfile:
+        with open('sv6_serial.log') as logfile:
             flag = False
             for line in logfile.readlines():
                 if 'vmops' in line:
