@@ -25,7 +25,7 @@ tmux new-session -n'sv6' -s'sv6' -d
 
 # Now run the qemu script
 # clean up the serial.log file first
-rm serial.log -f
+rm sv6_serial.log -f
 
 # run the script
 run_qemu $1 $2
