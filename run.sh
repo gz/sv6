@@ -41,6 +41,9 @@ done
 
 exec_tmux "halt"
 sleep 5
+sync
 tmux kill-session -t 'sv6'
+
+cat sv6_serial.log
 
 python3 ./parse.py
