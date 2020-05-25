@@ -18,7 +18,7 @@ function exec_tmux_vmops {
 }
 
 # let's compile first to avoid the delay
-make Q=
+#make Q=
 
 qemu-system-x86_64 --version
 
