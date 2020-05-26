@@ -265,7 +265,7 @@ if __name__ == '__main__':
         sys.excepthook = exception_handler
 
     # Build
-    build_kernel(args)
+    # build_kernel(args)
 
     # Run
     if not args.norun:
