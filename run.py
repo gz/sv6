@@ -215,7 +215,7 @@ def run(args):
                                           str(args.qemu_cores), '-t', 'interleave']()).strip()
             # For big machines it can take a while to spawn all threads in qemu
             # if but if the threads are not spawned qemu_affinity.py fails, so we sleep
-            sleep(2.00)
+            sleep(10.00)
             if args.verbose:
                 log("QEMU affinity {}".format(affinity_list))
             sudo[python3['./qemu_affinity.py',
