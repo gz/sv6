@@ -23,6 +23,7 @@ function exec_tmux_vmops {
 qemu-system-x86_64 --version
 
 # First create the tmux session and detach from it
+tmux kill-session -t 'sv6'
 tmux new-session -n'sv6' -s'sv6' -d
 
 # Now run the qemu script
